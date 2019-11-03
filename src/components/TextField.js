@@ -1,7 +1,8 @@
 import React from 'react';
 import {
   fade,
-  makeStyles
+  makeStyles,
+  useTheme
 } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 
@@ -25,7 +26,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function InputTextField(props) {
-	const classes = useStyles();
+  const theme = useTheme(props);
+	const classes = useStyles(theme);
 
 	return <TextField InputProps={{ classes, disableUnderline: true }} {...props} />;
 }

@@ -1,6 +1,5 @@
 import React from 'react';
-import { useTheme } from '@material-ui/core/styles';
-import { makeStyles } from '@material-ui/core/styles';
+import { useTheme, makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import TextField from '../components/TextField';
@@ -30,13 +29,11 @@ const NewTask = (props) => {
 		<Box className={classes.root}>
 			<TextField
 				label="Create new todo"
-				// className={classes.margin}
-				// defaultValue="react-reddit"
 				variant="filled"
 				className={classes.text}
 			/>
 			<Button className={classes.button}>Save</Button>
 		</Box>
 	);
-}
+};
 export default NewTask;

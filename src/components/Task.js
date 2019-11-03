@@ -7,5 +7,5 @@ const Task = (props) => {
 			<p>{props.task}</p>
 		</Box>
 	);
-}
+};
 export default Task;

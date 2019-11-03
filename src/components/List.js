@@ -12,5 +12,5 @@ const List = (props) => {
 		}
 		</Box>
 	);
-}
+};
 export default List;
