@@ -3,8 +3,6 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import TextField from '../components/TextField';
-import { useMutation } from '@apollo/react-hooks';
-import { ADD_TODO } from '../services/queries';
 import { handleSave } from '../handlers/handlers';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({

@@ -1,5 +1,6 @@
 const handleSave = (current, addTodo, clearTodo, refresh) => {
-  console.log(current);
+  if (current === '')
+    return;
   addTodo({
     variables: { title: current },
     onError: (err) => { console.log(err) }
@@ -22,4 +23,17 @@ const handleToggleAll = (toggleAll) => {
   });
 };
 
-export { handleSave, handleMutation, handleToggleAll };
+const handleEditing = (editTodo, id, title, setEditMode) => {
+  editTodo({
+    variables: { id, title },
+    onError: (err) => { console.log(err) }
+  });
+  setEditMode(false);
+};
+
+const handleCancel = (title, setDraft, setEditMode) => {
+  setDraft(title);
+  setEditMode(false);
+};
+
+export { handleSave, handleMutation, handleToggleAll, handleEditing, handleCancel };

@@ -59,4 +59,14 @@ const TOGGLE_ALL = gql`
   }
 `;
 
-export {GET_TODOS, ADD_TODO, TOGGLE_TODO, DESTROY_TODO, CLEAR_TODO, TOGGLE_ALL};
+const EDIT_TODO = gql`
+  mutation EditTodo($id: String!, $title: String!) {
+     save(id: $id, title: $title) {
+      id
+      title
+      completed
+    }
+  }
+`;
+
+export {GET_TODOS, ADD_TODO, TOGGLE_TODO, DESTROY_TODO, CLEAR_TODO, TOGGLE_ALL, EDIT_TODO};

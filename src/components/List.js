@@ -30,6 +30,7 @@ const List = (props) => {
 						last={index === props.list.length - 1}
 						toggleTodo={props.toggleTodo}
 						destroyTodo={props.destroyTodo}
+						editTodo={props.editTodo}
 					/>);
 			})
 		}

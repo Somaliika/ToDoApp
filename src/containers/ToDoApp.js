@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import teal from '@material-ui/core/colors/teal';
 import amber from '@material-ui/core/colors/amber';
 import Box from '@material-ui/core/Box';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import List from '../components/List';
 import Footer from '../components/Footer';
 import NewTask from '../components/NewTask';
-import { GET_TODOS, ADD_TODO, TOGGLE_TODO, DESTROY_TODO, CLEAR_TODO, TOGGLE_ALL } from '../services/queries';
+import { GET_TODOS, ADD_TODO, TOGGLE_TODO, DESTROY_TODO, CLEAR_TODO, TOGGLE_ALL, EDIT_TODO } from '../services/queries';
 
 const theme = createMuiTheme({
 	spacing: 4,
@@ -19,6 +20,7 @@ const theme = createMuiTheme({
 });
 
 const ToDoApp = () => {
+  /* Apollo react hooks */
   const response = useQuery(GET_TODOS);
   const [addTodo] = useMutation(ADD_TODO,
     {
@@ -55,6 +57,21 @@ const ToDoApp = () => {
         });
       }
     });
+  const [editTodo] = useMutation(EDIT_TODO,
+    {
+      update(cache, { data: { save } }) {
+        const { todos } = cache.readQuery({ query: GET_TODOS });
+        console.log(save);
+        todos.forEach(x => {
+          if (x.id === save.id)
+            x.title = save.title;
+        });
+        cache.writeQuery({
+          query: GET_TODOS,
+          data: { todos },
+        });
+      }
+    });
   const [clearCompletedTodo] = useMutation(CLEAR_TODO,
     {
       update(cache, { data: { clearCompleted } }) {
@@ -84,8 +101,15 @@ const ToDoApp = () => {
         });
       }
     });
-  if (response.loading) return <p>Loading ...</p>;
+  /* Loading view */
+  if (response.loading)
+    return (
+    <Box id="app" display="flex" justifyContent="center" alignItems="center">
+      <CircularProgress color="secondary" />
+    </Box>
+  );
   if (response.error) return <p>Error :(</p>;
+  /* Rendering */
 	return (
 		<ThemeProvider theme={theme}>
 			<Box id="app" display="flex" flexDirection="column">
@@ -97,6 +121,7 @@ const ToDoApp = () => {
 						list={response.data.todos}
 						toggleTodo={toggleTodo}
 						destroyTodo={destroyTodo}
+            editTodo={editTodo}
 					/>
 				</main>
 				<footer>
